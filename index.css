@@ -1,0 +1,50 @@
+/**
+ * Dependencies
+ */
+
+@import "normalize.css/normalize";
+@import "colors.css/myth/variables";
+
+/**
+ * Base
+ */
+
+html {
+  font: 400 1em/1.5 monospace;
+}
+@media screen and (min-width: 48em) {
+  html {
+    font-size: 1.125em;
+  }
+}
+@media screen and (min-width: 80em) {
+  html {
+    font-size: 1.25em;
+  }
+}
+
+body {
+  background-color: var(--white);
+  color: var(--blue);
+}
+
+::selection {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+/**
+ * Emoji
+ */
+
+.emoji {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.emoji__cell {
+  font-size: 2rem;
+}

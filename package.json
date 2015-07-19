@@ -1,0 +1,56 @@
+{
+  "name": "deku-random-emoji",
+  "version": "0.0.0",
+  "private": "true",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gummesson/deku-random-emoji.git"
+  },
+  "author": "Ellen Gummesson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gummesson/deku-random-emoji/issues"
+  },
+  "homepage": "https://github.com/gummesson/deku-random-emoji",
+  "dependencies": {
+    "colors.css": "^2.3.0",
+    "deku": "^0.4.11",
+    "emojilib": "^0.1.0",
+    "normalize.css": "^3.0.3",
+    "random-obj-key": "^1.0.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.1.3",
+    "browserify": "^11.0.0",
+    "budo": "^4.1.0",
+    "cpy": "^3.3.1",
+    "cssnext": "^1.8.1",
+    "garnish": "^2.1.3",
+    "html-minifier": "^0.7.2",
+    "mkdirp": "^0.5.1",
+    "npm-run-all": "^1.2.6",
+    "rimraf": "^2.4.1",
+    "surge": "^0.14.3",
+    "uglifyify": "^3.0.1"
+  },
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
+  "scripts": {
+    "start": "npm run watch",
+    "bundle": "npm run build",
+    "build": "npm-run-all build:clean -p build:js build:css build:html build:domain",
+    "build:clean": "rimraf www && mkdirp www",
+    "build:js": "browserify -g [ uglifyify --no-sourcemap -c -m ] -e index.js > www/bundle.js",
+    "build:css": "cssnext -c -C cssnext.json index.css > www/bundle.css",
+    "build:html": "html-minifier --remove-comments --collapse-whitespace index.html > www/index.html",
+    "build:domain": "cpy CNAME www",
+    "watch": "npm-run-all -p watch:*",
+    "watch:js": "budo index.js:bundle.js --live -v | garnish",
+    "watch:css": "cssnext --sourcemap -w -C cssnext.json index.css bundle.css",
+    "deploy": "npm run build && npm run deploy:surge",
+    "deploy:surge": "surge -p www"
+  }
+}
